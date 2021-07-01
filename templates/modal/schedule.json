@@ -1,0 +1,30 @@
+{
+	"type":"modal",
+	"callback_id":"modal_schedule",
+	"title":{
+		"type":"plain_text",
+		"text":"Reserve {{name}}"
+	},
+	"blocks":[
+		{
+			"type": "actions",
+			"block_id": "{{name}}",
+			"elements": [
+				{
+					"type": "timepicker",
+					"initial_time": "09:00",
+					"placeholder": {
+						"type": "plain_text",
+						"text": "Select time",
+						"emoji": true
+					},
+					"action_id": "modal_schedule_timepicker_selected"
+				}
+			]
+		}
+	],
+	"submit":{
+		"type":"plain_text",
+		"text":"Save"
+	}
+}

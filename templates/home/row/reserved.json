@@ -1,0 +1,37 @@
+[
+	{
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "*{{name}}* is used by *{{user}}* since *{{when}}* {{branch}}"
+		}
+	},
+	{
+		"type": "actions",
+		"elements": [
+			{
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Release",
+					"emoji": true
+				},
+				"value": "{{name}}",
+				"action_id": "btn_use"
+			},
+			{
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Schedule",
+					"emoji": true
+				},
+				"value": "{{name}}",
+				"action_id": "modal_schedule_open"
+			}
+		]
+	},
+	{
+		"type": "divider"
+	}
+]

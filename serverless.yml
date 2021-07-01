@@ -1,0 +1,17 @@
+service: serverless-bolt-js
+frameworkVersion: '2'
+provider:
+    name: aws
+    runtime: nodejs12.x
+    environment:
+        SLACK_SIGNING_SECRET: ${env:slack_signing_secret}
+        SLACK_BOT_TOKEN: ${env:slack_bot_token}
+functions:
+    slack:
+        handler: app.handler
+        events:
+            - http:
+                  path: slack/events
+                  method: post
+plugins:
+    - serverless-offline

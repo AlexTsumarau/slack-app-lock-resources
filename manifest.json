@@ -1,0 +1,99 @@
+{
+	"_metadata": {
+		"major_version": 1,
+		"minor_version": 1
+	},
+	"display_information": {
+		"name": "Locking shared resources",
+		"description": "This Slack App allows adding and locking shared resources",
+		"background_color": "#1d7c00"
+	},
+	"features": {
+		"app_home": {
+			"home_tab_enabled": true,
+			"messages_tab_enabled": true,
+			"messages_tab_read_only_enabled": false
+		},
+		"bot_user": {
+			"display_name": "app2 bot1",
+			"always_online": true
+		},
+		"slash_commands": [
+			{
+				"command": "/add_env",
+				"url": "https://64a6d779bebb.ngrok.io/slack/events",
+				"description": "/add_env",
+				"should_escape": false
+			},
+			{
+				"command": "/remove_env",
+				"url": "https://64a6d779bebb.ngrok.io/slack/events",
+				"description": "/remove_env",
+				"should_escape": false
+			}
+		],
+		"workflow_steps": [
+			{
+				"name": "step1",
+				"callback_id": "https://run.mocky.io"
+			}
+		]
+	},
+	"oauth_config": {
+		"scopes": {
+			"user": [
+				"admin"
+			],
+			"bot": [
+				"app_mentions:read",
+				"calls:read",
+				"calls:write",
+				"channels:history",
+				"channels:join",
+				"channels:manage",
+				"channels:read",
+				"chat:write",
+				"chat:write.customize",
+				"chat:write.public",
+				"commands",
+				"dnd:read",
+				"emoji:read",
+				"files:read",
+				"files:write",
+				"groups:history",
+				"groups:read",
+				"groups:write",
+				"im:history",
+				"im:read",
+				"im:write",
+				"incoming-webhook",
+				"mpim:history",
+				"team:read",
+				"workflow.steps:execute",
+				"links:write"
+			]
+		}
+	},
+	"settings": {
+		"event_subscriptions": {
+			"request_url": "https://64a6d779bebb.ngrok.io/slack/events",
+			"user_events": [
+				"message.app_home"
+			],
+			"bot_events": [
+				"app_home_opened",
+				"message.channels",
+				"message.groups",
+				"message.im",
+				"message.mpim",
+				"workflow_step_execute"
+			]
+		},
+		"interactivity": {
+			"is_enabled": true,
+			"request_url": "https://64a6d779bebb.ngrok.io/slack/events"
+		},
+		"org_deploy_enabled": false,
+		"socket_mode_enabled": false
+	}
+}

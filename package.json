@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@slack/bolt": "^3.4.0",
+    "@slack/interactive-messages": "^2.0.2",
+    "@slack/oauth": "^2.1.0",
+    "@slack/web-api": "^6.2.4",
+    "@slack/webhook": "^6.0.0",
+    "aws-sdk": "^2.936.0",
+    "dotenv": "^10.0.0",
+    "event": "^1.0.0",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mustache": "^4.2.0",
+    "node-fetch": "^2.6.1",
+    "promise": "^8.1.0",
+    "request": "^2.88.2",
+    "slack": "^11.0.2"
+  },
+  "devDependencies": {
+    "serverless": "^2.49.0",
+    "serverless-offline": "^7.0.0"
+  }
+}

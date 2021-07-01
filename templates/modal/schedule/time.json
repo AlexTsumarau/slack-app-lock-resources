@@ -1,0 +1,17 @@
+{
+	"type": "section",
+	"text": {
+		"type": "mrkdwn",
+		"text": "*{{userName}}* - *{{time}}*"
+	},
+	"accessory": {
+		"type": "button",
+		"text": {
+			"type": "plain_text",
+			"text": "Remove",
+			"emoji": true
+		},
+		"value": "{{envName}}/{{time}}",
+		"action_id": "remove_time"
+	}
+}
