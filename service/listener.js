@@ -4,6 +4,8 @@ const stateHome = require('./../state/home.js');
 
 module.exports = function (boltApp) {
 
+    stateHome.init('default')
+
     boltApp.message('ping', async ({message, say}) => {
         await say(`Pong <@${message.user}>: ` + new Date());
     })
@@ -76,6 +78,8 @@ module.exports = function (boltApp) {
         const selectedEnvName = view.blocks[0].block_id
 
         stateHome.addReservedTime(selectedEnvName);
+
+        save(state_envs)
     })
 
     boltApp.action('remove_time', async ({ack, body, client}) => {

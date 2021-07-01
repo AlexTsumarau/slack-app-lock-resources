@@ -1,3 +1,5 @@
+const mc = require('./../persistence/memcahed.js');
+
 module.exports = (function () {
     'use strict';
 
@@ -30,6 +32,7 @@ module.exports = (function () {
 
     var setEnvs = function (triggeredEnvName, userName) {
         toggleStatus(triggeredEnvName, userName);
+        save(state_envs)
     }
 
     var cacheReservedTime = function (envName, username, time) {
@@ -46,6 +49,7 @@ module.exports = (function () {
                 });
             }
         })
+        save(state_envs)
     }
 
     var getReservedTimes = function (envName) {
@@ -66,6 +70,7 @@ module.exports = (function () {
                 })
             }
         });
+        save(state_envs)
     }
 
     var getEnv = function (envName) {
@@ -82,12 +87,28 @@ module.exports = (function () {
             when: null,
             schedule: []
         })
+        save(state_envs)
     }
 
     var removeEnv = function (envName) {
         state_envs = state_envs.filter(envItem => {
             return envItem.name !== envName
         });
+        save(state_envs)
+    }
+
+    var save = function (k, json) {
+        //mc.setJson(k, json)
+    }
+
+    var restore = async function (k) {
+        // if (await mc.isSet(k)) {
+        //     state_envs = await mc.getJson(k)
+        // }
+    }
+
+    var init = function (k) {
+        //restore(k)
     }
 
     return {
@@ -100,5 +121,6 @@ module.exports = (function () {
         getEnv: getEnv,
         addEnv: addEnv,
         removeEnv: removeEnv,
+        init: init,
     };
 }());
