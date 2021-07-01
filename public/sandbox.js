@@ -1,4 +1,4 @@
-const lib_templates = require('./templates.js');
+const lib_templates = require('./../service/templates.js');
 const lib_state_home = require('./../state/home.js');
 
 

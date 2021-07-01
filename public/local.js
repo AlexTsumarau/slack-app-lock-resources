@@ -5,7 +5,7 @@ const stateHome = require('./../state/home.js');
 require('dotenv').config()
 
 const boltApp = new App({
-    token: process.env.slack_token,
+    token: process.env.slack_bot_token,
     signingSecret: process.env.slack_signing_secret
 })
 
