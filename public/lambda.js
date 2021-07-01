@@ -1,19 +1,21 @@
-const { App, AwsLambdaReceiver } = require('@slack/bolt');
+const {App, AwsLambdaReceiver} = require('@slack/bolt');
 const serviceListeners = require('./../service/listener.js');
-
-const awsLambdaReceiver = new AwsLambdaReceiver({
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-});
-
-const boltApp = new App({
-    token: process.env.slack_bot_token,
-    receiver: awsLambdaReceiver,
-    processBeforeResponse: true
-});
-
-serviceListeners(boltApp);
+require('dotenv').config()
+const stateHome = require('./../state/home.js');
 
 module.exports.handler = async (event, context, callback) => {
-    const handler = await boltApp.start();
+
+    const boltApp = new App({
+        token: process.env.slack_bot_token,
+        receiver: new AwsLambdaReceiver({
+            signingSecret: process.env.slack_signing_secret,
+        }),
+        processBeforeResponse: true
+    });
+
+    serviceListeners(boltApp);
+    stateHome.addEnv('testEnv1');
+
+    const handler = await boltApp.start(3001);
     return handler(event, context, callback);
 }

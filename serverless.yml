@@ -8,10 +8,16 @@ provider:
         SLACK_BOT_TOKEN: ${env:slack_bot_token}
 functions:
     slack:
-        handler: app.handler
+        handler: public/lambda.handler
         events:
             - http:
+                  method: post
                   path: slack/events
+    ping:
+        handler: public/ping.handler
+        events:
+            - http:
+                  path: ping
                   method: post
 plugins:
     - serverless-offline
