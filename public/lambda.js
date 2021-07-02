@@ -14,7 +14,6 @@ module.exports.handler = async (event, context, callback) => {
     });
 
     serviceListeners(boltApp);
-    stateHome.addEnv('testEnv1');
 
     const handler = await boltApp.start(3001);
     return handler(event, context, callback);

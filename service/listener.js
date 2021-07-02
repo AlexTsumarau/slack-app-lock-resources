@@ -4,7 +4,7 @@ const stateHome = require('./../state/home.js');
 
 module.exports = function (boltApp) {
 
-    stateHome.init('default')
+    stateHome.init();
 
     boltApp.message('ping', async ({message, say}) => {
         await say(`Pong <@${message.user}>: ` + new Date());
@@ -25,12 +25,8 @@ module.exports = function (boltApp) {
         }
     })
 
-    const renderHome = async function (ack, body, client) {
+    const reRenderHome = async function (ack, body, client) {
         await ack();
-        const selectedEnvName = body.actions[0].value;
-        const userName = body.user.name
-        stateHome.setEnvs(selectedEnvName, userName)
-
         try {
             let envs_blocks = serviceTemplates('home/row', stateHome.getEnvs());
             await client.views.update({
@@ -48,7 +44,11 @@ module.exports = function (boltApp) {
     }
 
     boltApp.action('btn_use', async ({ack, body, client}) => {
-        renderHome(ack, body, client);
+        console.log('btn_use')
+        const selectedEnvName = body.actions[0].value;
+        const userName = body.user.name
+        stateHome.toggleEnvSatus(selectedEnvName, userName)
+        reRenderHome(ack, body, client);
     })
 
     boltApp.action('modal_schedule_open', async ({ack, body, client}) => {
@@ -78,8 +78,6 @@ module.exports = function (boltApp) {
         const selectedEnvName = view.blocks[0].block_id
 
         stateHome.addReservedTime(selectedEnvName);
-
-        save(state_envs)
     })
 
     boltApp.action('remove_time', async ({ack, body, client}) => {

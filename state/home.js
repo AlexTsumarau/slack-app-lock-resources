@@ -5,6 +5,7 @@ module.exports = (function () {
 
     const sFree = 'free'
     const sReserved = 'reserved'
+    const kDefault = 'default'
 
     let state_envs = []
     let cachedReservedTime = {}
@@ -30,9 +31,9 @@ module.exports = (function () {
         return state_envs;
     }
 
-    var setEnvs = function (triggeredEnvName, userName) {
+    var toggleEnvSatus = function (triggeredEnvName, userName) {
         toggleStatus(triggeredEnvName, userName);
-        save(state_envs)
+        save()
     }
 
     var cacheReservedTime = function (envName, username, time) {
@@ -49,7 +50,7 @@ module.exports = (function () {
                 });
             }
         })
-        save(state_envs)
+        save()
     }
 
     var getReservedTimes = function (envName) {
@@ -70,7 +71,7 @@ module.exports = (function () {
                 })
             }
         });
-        save(state_envs)
+        save()
     }
 
     var getEnv = function (envName) {
@@ -87,33 +88,39 @@ module.exports = (function () {
             when: null,
             schedule: []
         })
-        save(state_envs)
+        save()
     }
 
     var removeEnv = function (envName) {
         state_envs = state_envs.filter(envItem => {
             return envItem.name !== envName
         });
-        save(state_envs)
+        save()
     }
 
-    var save = function (k, json) {
-        //mc.setJson(k, json)
+    var save = function () {
+        if(mc !== null){
+            console.log('save', state_envs)
+            mc.setJson(kDefault, state_envs)
+        }
     }
 
-    var restore = async function (k) {
-        // if (await mc.isSet(k)) {
-        //     state_envs = await mc.getJson(k)
-        // }
+    var restore = async function () {
+        if(mc !== null){
+            state_envs = await mc.getJson(kDefault)
+            console.log('restore', state_envs)
+        }
     }
 
-    var init = function (k) {
-        //restore(k)
+    var init = function () {
+        if (state_envs.length === 0) {
+            restore()
+        }
     }
 
     return {
         getEnvs: getEnvs,
-        setEnvs: setEnvs,
+        toggleEnvSatus: toggleEnvSatus,
         cacheReservedTime: cacheReservedTime,
         addReservedTime: addReservedTime,
         getReservedTimes: getReservedTimes,

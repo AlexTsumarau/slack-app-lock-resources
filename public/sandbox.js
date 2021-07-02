@@ -19,14 +19,15 @@ const mc = require('./../persistence/memcahed.js');
 
 //a = lib_state_home.getReservedTimes('intDE')
 
+mc.init();
+
 (async () => {
     mc.setJson('k', {a: 'b', c: {d: 'e'}})
 
-    if (await mc.isSet('k')){
-        a = await mc.getJson('k')
+    if (await mc.isSet('default')){
+        a = await mc.getJson('default')
         console.log(a);
     }
-
 
     mc.close()
 })()

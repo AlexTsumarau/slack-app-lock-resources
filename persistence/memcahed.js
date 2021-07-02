@@ -5,12 +5,19 @@ const {promisify} = require('util');
 module.exports = (function () {
     'use strict';
 
-    var mc = memjs.Client.create(
-        process.env.memcached_host,
-        {
-            username: process.env.memcached_user,
-            password: process.env.memcached_pass
-        });
+    var mc = null;
+    var init = function () {
+        if (mc !== null) {
+            return
+        }
+        mc = memjs.Client.create(
+            process.env.memcached_host,
+            {
+                username: process.env.memcached_user,
+                password: process.env.memcached_pass
+            });
+    }
+    init()
 
     var setJson = function (key, val) {
         mc.set(key, JSON.stringify(val))
@@ -26,7 +33,9 @@ module.exports = (function () {
     }
 
     var close = function () {
-        mc.close()
+        if (mc !== null) {
+            mc.close()
+        }
     }
 
     var isSet = async function (key) {
