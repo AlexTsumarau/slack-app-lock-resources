@@ -23,7 +23,7 @@
 				"type": "button",
 				"text": {
 					"type": "plain_text",
-					"text": "Schedule",
+					"text": "Book",
 					"emoji": true
 				},
 				"value": "{{name}}",

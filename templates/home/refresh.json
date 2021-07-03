@@ -1,0 +1,17 @@
+[
+    {
+        "type": "actions",
+        "elements": [
+            {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Refresh",
+                    "emoji": true
+                },
+                "action_id": "btn_refresh"
+            }
+        ]
+    }
+]
+

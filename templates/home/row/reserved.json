@@ -3,7 +3,14 @@
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*{{name}}* is used by *{{user}}* since *{{when}}* {{branch}}"
+			"text": "*{{name}}* is used"
+		}
+	},
+	{
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "By *{{user}}*. Since *{{when}}* {{branch}}. Waiting: {{queue}}"
 		}
 	},
 	{
@@ -23,11 +30,21 @@
 				"type": "button",
 				"text": {
 					"type": "plain_text",
-					"text": "Schedule",
+					"text": "Book",
 					"emoji": true
 				},
 				"value": "{{name}}",
 				"action_id": "modal_schedule_open"
+			},
+			{
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Queue",
+					"emoji": true
+				},
+				"value": "{{name}}",
+				"action_id": "btn_queue"
 			}
 		]
 	},

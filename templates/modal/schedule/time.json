@@ -2,7 +2,7 @@
 	"type": "section",
 	"text": {
 		"type": "mrkdwn",
-		"text": "*{{userName}}* - *{{time}}*"
+		"text": "*{{userName}}*: *{{timeStart}}* .. *{{timeEnd}}*"
 	},
 	"accessory": {
 		"type": "button",

@@ -36,8 +36,8 @@ module.exports = (function () {
         save()
     }
 
-    var cacheReservedTime = function (envName, username, time) {
-        cachedReservedTime = {envName: envName, username: username, time: time}
+    var cacheReservedTime = function (envName, username, timeStart) {
+        cachedReservedTime = {envName: envName, username: username, timeStart: timeStart}
     }
 
     var addReservedTime = function (envName) {
@@ -46,7 +46,7 @@ module.exports = (function () {
                 envItem.schedule.push({
                     envName: cachedReservedTime.envName,
                     userName: cachedReservedTime.username,
-                    time: cachedReservedTime.time
+                    timeStart: cachedReservedTime.timeStart
                 });
             }
         })
@@ -63,11 +63,11 @@ module.exports = (function () {
         return result;
     }
 
-    var removeReservedTime = function (envName, time) {
+    var removeReservedTime = function (envName, timeStart) {
         state_envs.forEach(envItem => {
             if (envItem.name === envName) {
                 envItem.schedule = envItem.schedule.filter(scheduleItem => {
-                    return time !== scheduleItem.time
+                    return timeStart !== scheduleItem.timeStart
                 })
             }
         });
@@ -86,7 +86,8 @@ module.exports = (function () {
             status: sFree,
             user: null,
             when: null,
-            schedule: []
+            schedule: [],
+            queue: []
         })
         save()
     }
@@ -99,14 +100,14 @@ module.exports = (function () {
     }
 
     var save = function () {
-        if(mc !== null){
+        if (mc !== null) {
             console.log('save', state_envs)
             mc.setJson(kDefault, state_envs)
         }
     }
 
     var restore = async function () {
-        if(mc !== null){
+        if (mc !== null) {
             state_envs = await mc.getJson(kDefault)
             console.log('restore', state_envs)
         }
@@ -116,6 +117,25 @@ module.exports = (function () {
         if (state_envs.length === 0) {
             restore()
         }
+    }
+
+    var toggleQueue = function (envName, me) {
+        state_envs.forEach(envItem => {
+            if (envItem.name === envName && Array.isArray(envItem.queue)
+                && ( envItem.queue.includes(me) || me === envItem.user )
+            ) {
+                var index = envItem.queue.indexOf(me);
+                if (index !== -1) {
+                    envItem.queue.splice(index, 1);
+                }
+            } else {
+                if (!Array.isArray(envItem.queue)) {
+                    envItem.queue = []
+                }
+                envItem.queue.push(me)
+            }
+        });
+        save()
     }
 
     return {
@@ -129,5 +149,6 @@ module.exports = (function () {
         addEnv: addEnv,
         removeEnv: removeEnv,
         init: init,
+        toggleQueue: toggleQueue,
     };
 }());

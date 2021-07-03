@@ -4,8 +4,8 @@
 		"minor_version": 1
 	},
 	"display_information": {
-		"name": "Locking shared resources",
-		"description": "This Slack App allows adding and locking shared resources",
+		"name": "Locking resources",
+		"description": "App to lock shared resources",
 		"background_color": "#1d7c00"
 	},
 	"features": {
@@ -15,19 +15,19 @@
 			"messages_tab_read_only_enabled": false
 		},
 		"bot_user": {
-			"display_name": "app2 bot1",
+			"display_name": "Locking resources",
 			"always_online": true
 		},
 		"slash_commands": [
 			{
 				"command": "/add_env",
-				"url": "https://64a6d779bebb.ngrok.io/slack/events",
+				"url": "http://ec2-44-192-20-100.compute-1.amazonaws.com:3000/slack/events",
 				"description": "/add_env",
 				"should_escape": false
 			},
 			{
 				"command": "/remove_env",
-				"url": "https://64a6d779bebb.ngrok.io/slack/events",
+				"url": "http://ec2-44-192-20-100.compute-1.amazonaws.com:3000/slack/events",
 				"description": "/remove_env",
 				"should_escape": false
 			}
@@ -40,6 +40,9 @@
 		]
 	},
 	"oauth_config": {
+		"redirect_urls": [
+			"https://ec2-44-192-20-100.compute-1.amazonaws.com:3000/slack/events"
+		],
 		"scopes": {
 			"user": [
 				"admin"
@@ -76,7 +79,7 @@
 	},
 	"settings": {
 		"event_subscriptions": {
-			"request_url": "https://64a6d779bebb.ngrok.io/slack/events",
+			"request_url": "http://ec2-44-192-20-100.compute-1.amazonaws.com:3000/slack/events",
 			"user_events": [
 				"message.app_home"
 			],
@@ -91,7 +94,7 @@
 		},
 		"interactivity": {
 			"is_enabled": true,
-			"request_url": "https://64a6d779bebb.ngrok.io/slack/events"
+			"request_url": "http://ec2-44-192-20-100.compute-1.amazonaws.com:3000/slack/events"
 		},
 		"org_deploy_enabled": false,
 		"socket_mode_enabled": false

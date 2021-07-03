@@ -9,8 +9,12 @@ module.exports = function (path, params) {
                 let str = lib_mustache.render(template.toString(), envItem)
                 return JSON.parse(str)
             })
-            return Array.prototype.concat.apply([], arrayOfArraysToConcat);
-            break
+            const templateRefresh = lib_fs.readFileSync('templates/home/refresh.json').toString();
+            let jsonRefresh = JSON.parse(templateRefresh)
+            let results = Array.prototype.concat.apply([], arrayOfArraysToConcat, jsonRefresh);
+            results = Array.prototype.concat.apply(results, jsonRefresh);
+            return results;
+            break;
         case 'modal/schedule':
             const template = lib_fs.readFileSync('templates/' + path + '.json').toString();
             const templateTime = lib_fs.readFileSync('templates/' + path + '/time.json').toString();
@@ -24,7 +28,7 @@ module.exports = function (path, params) {
                 result.blocks = result.blocks.concat.apply(result.blocks, timeBlocks)
             }
             return result
-            break
+            break;
     }
 
 }

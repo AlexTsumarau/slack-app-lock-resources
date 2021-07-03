@@ -6,6 +6,10 @@ module.exports = function (boltApp) {
 
     stateHome.init();
 
+    const log = async (msg) => {
+        //await say(`Pong <@${message.user}>: ` + new Date());
+    }
+
     boltApp.message('ping', async ({message, say}) => {
         await say(`Pong <@${message.user}>: ` + new Date());
     })
@@ -26,7 +30,6 @@ module.exports = function (boltApp) {
     })
 
     const reRenderHome = async function (ack, body, client) {
-        await ack();
         try {
             let envs_blocks = serviceTemplates('home/row', stateHome.getEnvs());
             await client.views.update({
@@ -44,7 +47,7 @@ module.exports = function (boltApp) {
     }
 
     boltApp.action('btn_use', async ({ack, body, client}) => {
-        console.log('btn_use')
+        await ack();
         const selectedEnvName = body.actions[0].value;
         const userName = body.user.name
         stateHome.toggleEnvSatus(selectedEnvName, userName)
@@ -87,6 +90,14 @@ module.exports = function (boltApp) {
         stateHome.removeReservedTime(val[0], val[1])
     });
 
+    boltApp.action('btn_queue', async ({ack, body, client}) => {
+        await ack()
+        const envName = body.actions[0].value
+        const userName = body.user.name
+        stateHome.toggleQueue(envName, userName)
+        reRenderHome(ack, body, client);
+    });
+
     boltApp.command('/add_env', async ({ack, body, say}) => {
         await ack();
         stateHome.addEnv(body.text)
@@ -97,5 +108,10 @@ module.exports = function (boltApp) {
         await ack();
         stateHome.removeEnv(body.text)
         await say(`Environment "${body.text}" removed`);
+    });
+
+    boltApp.action('btn_refresh', async ({ack, body, client}) => {
+        await ack()
+        reRenderHome(ack, body, client);
     });
 }

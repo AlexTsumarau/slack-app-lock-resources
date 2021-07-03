@@ -30,3 +30,6 @@ nvm use 15.4.0
 
 **How to deploy to aws ec2**
 - https://codelabs.transcend.io/codelabs/node-terraform/index.html
+---
+/slack/events
+http://ec2-44-192-20-100.compute-1.amazonaws.com:3000/slack/events
