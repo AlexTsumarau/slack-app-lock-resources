@@ -121,18 +121,19 @@ module.exports = (function () {
 
     var toggleQueue = function (envName, me) {
         state_envs.forEach(envItem => {
-            if (envItem.name === envName && Array.isArray(envItem.queue)
-                && ( envItem.queue.includes(me) || me === envItem.user )
-            ) {
-                var index = envItem.queue.indexOf(me);
-                if (index !== -1) {
-                    envItem.queue.splice(index, 1);
+            if (envItem.name === envName) {
+                if (Array.isArray(envItem.queue) && (envItem.queue.includes(me) || me === envItem.user)
+                ) {
+                    var index = envItem.queue.indexOf(me);
+                    if (index !== -1) {
+                        envItem.queue.splice(index, 1);
+                    }
+                } else {
+                    if (!Array.isArray(envItem.queue)) {
+                        envItem.queue = []
+                    }
+                    envItem.queue.push(me)
                 }
-            } else {
-                if (!Array.isArray(envItem.queue)) {
-                    envItem.queue = []
-                }
-                envItem.queue.push(me)
             }
         });
         save()
