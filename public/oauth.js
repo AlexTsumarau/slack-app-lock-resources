@@ -51,7 +51,7 @@ const boltApp = new App({
 serviceListeners(boltApp);
 
 (async () => {
-    await boltApp.start(8000);
+    await boltApp.start(3000);
     console.log('⚡️ Bolt app is running on port 3000. You can use https://ngrok.com/ to make it accessible for Slack API');
 })()
 
