@@ -25,6 +25,7 @@ module.exports = (function () {
                     envItem.user = null
                     envItem.when = null
                     isUsed = false
+                    envItem.queue = []
                 }
             }
         })
@@ -106,7 +107,7 @@ module.exports = (function () {
 
     var save = function () {
         if (mc !== null) {
-            console.log('save', state_envs)
+            //console.log('save', state_envs)
             mc.setJson(kDefault, state_envs)
         }
     }
@@ -114,7 +115,7 @@ module.exports = (function () {
     var restore = async function () {
         if (mc !== null) {
             state_envs = await mc.getJson(kDefault)
-            console.log('restore', state_envs)
+            //console.log('restore', state_envs)
         }
     }
 

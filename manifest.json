@@ -31,12 +31,6 @@
 				"description": "/remove_env",
 				"should_escape": false
 			}
-		],
-		"workflow_steps": [
-			{
-				"name": "step1",
-				"callback_id": "https://run.mocky.io"
-			}
 		]
 	},
 	"oauth_config": {
@@ -44,36 +38,11 @@
 			"https://a850d80a76dc.ngrock.io/slack/events"
 		],
 		"scopes": {
-			"user": [
-				"admin"
-			],
 			"bot": [
-				"app_mentions:read",
-				"calls:read",
-				"calls:write",
-				"channels:history",
-				"channels:join",
-				"channels:manage",
-				"channels:read",
-				"chat:write",
-				"chat:write.customize",
-				"chat:write.public",
 				"commands",
-				"dnd:read",
-				"emoji:read",
-				"files:read",
-				"files:write",
-				"groups:history",
-				"groups:read",
-				"groups:write",
-				"im:history",
-				"im:read",
-				"im:write",
 				"incoming-webhook",
-				"mpim:history",
 				"team:read",
-				"workflow.steps:execute",
-				"links:write"
+				"chat:write"
 			]
 		}
 	},
@@ -84,12 +53,7 @@
 				"message.app_home"
 			],
 			"bot_events": [
-				"app_home_opened",
-				"message.channels",
-				"message.groups",
-				"message.im",
-				"message.mpim",
-				"workflow_step_execute"
+				"app_home_opened"
 			]
 		},
 		"interactivity": {
