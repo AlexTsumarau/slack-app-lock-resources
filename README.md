@@ -32,8 +32,12 @@ nvm use 15.4.0
 - https://codelabs.transcend.io/codelabs/node-terraform/index.html
 ---
 /slack/events
-https://a850d80a76dc.ngrok.io/slack/events
+<a href="https://slack.com/oauth/v2/authorize?client_id=2259947788352.2249092805718&scope=commands,incoming-webhook,team:read,chat:write&user_scope="><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+https://slack.com/oauth/v2/authorize?client_id=2259947788352.2249092805718&scope=commands,incoming-webhook,team:read,chat:write&user_scope=
+<meta name="slack-app-id" content="A027B2QPPM4">
 
-<a href="https://slack.com/oauth/v2/authorize?client_id=2122260658704.2238438082451&scope=app_mentions:read,calls:read,calls:write,channels:history,channels:join,channels:manage,channels:read,chat:write,chat:write.customize,chat:write.public,commands,dnd:read,emoji:read,files:read,files:write,groups:history,groups:read,groups:write,im:history,im:read,im:write,incoming-webhook,mpim:history,team:read,workflow.steps:execute,links:write&user_scope=admin"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+https://a850d80a76dc.ngrock.io/slack/events?code=2259947788352.2262046366308.454a490fd227cd02fbfe64a55f718e6bbfcdbbd922acf03b61949844f3866cdc&state=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0YWxsT3B0aW9ucyI6eyJzY29wZXMiOlsiY2hhbm5lbHM6cmVhZCIsImdyb3VwczpyZWFkIiwiY2hhbm5lbHM6bWFuYWdlIiwiY2hhdDp3cml0ZSIsImluY29taW5nLXdlYmhvb2siXX0sIm5vdyI6IjIwMjEtMDctMDhUMjA6NDE6MjEuMDgwWiIsImlhdCI6MTYyNTc3Njg4MX0.-T1VQqrsa6yj1hIFHjR0G3D6G6NxrDbyM-FK6sn1HJw
 
-https://slack.com/oauth/v2/authorize?client_id=2122260658704.2238438082451&scope=app_mentions:read,calls:read,calls:write,channels:history,channels:join,channels:manage,channels:read,chat:write,chat:write.customize,chat:write.public,commands,dnd:read,emoji:read,files:read,files:write,groups:history,groups:read,groups:write,im:history,im:read,im:write,incoming-webhook,mpim:history,team:read,workflow.steps:execute,links:write&user_scope=admin
+https://a850d80a76dc.ngrok.io/slack/events?code=2259947788352.2279552050656.6d69962ab6c1c183ce2300a94a45df7713abf660ee3536c5cc1ddff8285ef2e2&state=
+
+https://a850d80a76dc.ngrok.io/slack/events?code=2259947788352.2249109275942.510f86c68b4127197ce20fe1fae162b66f19d24cd2ac536a13b522e7a0e0d4e2&state=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnN0YWxsT3B0aW9ucyI6eyJzY29wZXMiOlsiY2hhbm5lbHM6cmVhZCIsImdyb3VwczpyZWFkIiwiY2hhbm5lbHM6bWFuYWdlIiwiY2hhdDp3cml0ZSIsImluY29taW5nLXdlYmhvb2siXX0sIm5vdyI6IjIwMjEtMDctMDhUMjA6NDQ6MTEuMTExWiIsImlhdCI6MTYyNTc3NzA1MX0.wJWPdSRsIufDnQySMiguW-yn-0JKQJt8RqEnpMdtSyg

@@ -1,15 +1,20 @@
 const serviceListeners = require('./../service/listener.js');
-const {App} = require('@slack/bolt');
-const stateHome = require('./../state/home.js');
-
+const {App, ExpressReceiver} = require('@slack/bolt');
 require('dotenv').config()
 
+const receiver = new ExpressReceiver({ signingSecret: process.env.slack_signing_secret });
 const boltApp = new App({
     token: process.env.slack_bot_token,
-    signingSecret: process.env.slack_signing_secret
+    receiver
 })
 
 serviceListeners(boltApp);
+
+receiver.router.post('/', (req, res) => {
+    // You're working with an express req and res now.
+    res.send('ok');
+});
+
 
 (async () => {
     await boltApp.start(3000);

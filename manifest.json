@@ -35,7 +35,7 @@
 	},
 	"oauth_config": {
 		"redirect_urls": [
-			"https://a850d80a76dc.ngrock.io/slack/events"
+			"https://a850d80a76dc.ngrok.io/slack/events"
 		],
 		"scopes": {
 			"bot": [
