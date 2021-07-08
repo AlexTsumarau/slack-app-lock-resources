@@ -1,6 +1,6 @@
 const serviceListeners = require('./../service/listener.js');
 const {App} = require('@slack/bolt');
-const stateHome = require('./../state/home.js');
+const stateSettings = require('./../state/settings.js');
 
 require('dotenv').config()
 
@@ -8,44 +8,34 @@ const boltApp = new App({
     signingSecret: process.env.slack_signing_secret,
     clientId: process.env.slack_client_id,
     clientSecret: process.env.slack_client_secret,
+    stateSecret: 'my-state-secret',
     scopes: ['channels:read', 'groups:read', 'channels:manage', 'chat:write', 'incoming-webhook'],
-    installerOptions: {
-        authVersion: 'v2', // default  is 'v2', 'v1' is used for classic slack apps
-        metadata: 'some session data',
-        installPath: '/slack/install',
-        redirectUriPath: '/slack/redirect',
-        callbackOptions: {
-            success: (installation, installOptions, req, res) => {
-                // Do custom success logic here
-                res.send('successful!');
-            },
-            failure: (error, installOptions , req, res) => {
-                // Do custom failure logic here
-                res.send('failure');
+    installationStore: {
+        storeInstallation: async (installation) => {
+            // change the line below so it saves to your database
+            if (installation.isEnterpriseInstall && installation.enterprise !== undefined) {
+                // support for org wide app installation
+                return await stateSettings.set(installation.enterprise.id, installation);
             }
-        },
-        stateStore: {
-            // Do not need to provide a `stateSecret` when passing in a stateStore
-            // generateStateParam's first argument is the entire InstallUrlOptions object which was passed into generateInstallUrl method
-            // the second argument is a date object
-            // the method is expected to return a string representing the state
-            generateStateParam: async (installUrlOptions, date) => {
-                // generate a random string to use as state in the URL
-                const randomState = randomStringGenerator();
-                // save installOptions to cache/db
-                await myDB.set(randomState, installUrlOptions);
-                // return a state string that references saved options in DB
-                return randomState;
-            },
-            // verifyStateParam's first argument is a date object and the second argument is a string representing the state
-            // verifyStateParam is expected to return an object representing installUrlOptions
-            verifyStateParam:  async (date, state) => {
-                // fetch saved installOptions from DB using state reference
-                const installUrlOptions = await myDB.get(randomState);
-                return installUrlOptions;
+            if (installation.team !== undefined) {
+                // single team app installation
+                return await stateSettings.set(installation.team.id, installation);
             }
+            throw new Error('Failed saving installation data to installationStore');
         },
-    }
+        fetchInstallation: async (installQuery) => {
+            // change the line below so it fetches from your database
+            if (installQuery.isEnterpriseInstall && installQuery.enterpriseId !== undefined) {
+                // org wide app installation lookup
+                return await stateSettings.get(installQuery.enterpriseId);
+            }
+            if (installQuery.teamId !== undefined) {
+                // single team app installation lookup
+                return await stateSettings.get(installQuery.teamId);
+            }
+            throw new Error('Failed fetching installation');
+        },
+    },
 });
 
 serviceListeners(boltApp);

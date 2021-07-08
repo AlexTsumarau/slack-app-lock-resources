@@ -1,13 +1,26 @@
 const {App} = require('@slack/bolt');
 const serviceTemplates = require('./templates.js');
 const stateHome = require('./../state/home.js');
+const stateSettings = require('./../state/settings.js');
 
 module.exports = function (boltApp) {
 
     stateHome.init();
 
-    const log = async (msg) => {
-        //await say(`Pong <@${message.user}>: ` + new Date());
+    const logResouorceStatusUppdate = async (client, userName, envName, isUsed) => {
+        let msg = userName + ( isUsed ? ' is using ' : ' released ' ) + envName
+        let messageSettings = await stateSettings.getJson('messages')
+        if (!messageSettings.channel) {
+            return
+        }
+        try {
+            await client.chat.postMessage({
+                channel: messageSettings.channel,
+                text: msg
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     boltApp.message('ping', async ({message, say}) => {
@@ -16,7 +29,10 @@ module.exports = function (boltApp) {
 
     boltApp.event('app_home_opened', async ({event, client}) => {
         try {
-            let envs_blocks = serviceTemplates('home/row', stateHome.getEnvs());
+            let envs_blocks = serviceTemplates('home/row', stateHome.getEnvs(), event.user.name);
+            if (event.tab && event.tab === 'messages') {
+                stateSettings.setJson('messages', event)
+            }
             await client.views.publish({
                 user_id: event.user,
                 view: {
@@ -31,7 +47,7 @@ module.exports = function (boltApp) {
 
     const reRenderHome = async function (ack, body, client) {
         try {
-            let envs_blocks = serviceTemplates('home/row', stateHome.getEnvs());
+            let envs_blocks = serviceTemplates('home/row', stateHome.getEnvs(), body.user.name);
             await client.views.update({
                 view_id: body.view.id,
                 hash: body.view.hash,
@@ -50,8 +66,9 @@ module.exports = function (boltApp) {
         await ack();
         const selectedEnvName = body.actions[0].value;
         const userName = body.user.name
-        stateHome.toggleEnvSatus(selectedEnvName, userName)
-        reRenderHome(ack, body, client);
+        let isUsed = stateHome.toggleEnvSatus(selectedEnvName, userName)
+        reRenderHome(ack, body, client)
+        logResouorceStatusUppdate(client, userName, selectedEnvName, isUsed)
     })
 
     boltApp.action('modal_schedule_open', async ({ack, body, client}) => {

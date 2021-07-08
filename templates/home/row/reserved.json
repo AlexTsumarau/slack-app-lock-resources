@@ -10,7 +10,7 @@
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "By *{{user}}*. Since *{{when}}* {{branch}}. Waiting: {{queue}}"
+			"text": "By *{{user}}*. Since *{{when}}* {{branch}}{{#isQueue}}. Waiting: *{{queue}}* {{/isQueue}}"
 		}
 	},
 	{
@@ -25,17 +25,8 @@
 				},
 				"value": "{{name}}",
 				"action_id": "btn_use"
-			},
-			{
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Book",
-					"emoji": true
-				},
-				"value": "{{name}}",
-				"action_id": "modal_schedule_open"
-			},
+			}
+			{{^isCurrentUser}},
 			{
 				"type": "button",
 				"text": {
@@ -45,7 +36,7 @@
 				},
 				"value": "{{name}}",
 				"action_id": "btn_queue"
-			}
+			}{{/isCurrentUser}}
 		]
 	},
 	{

@@ -19,6 +19,15 @@ module.exports = (function () {
     }
     init()
 
+    var set = function (key, val) {
+        mc.set(key, val)
+    }
+
+    var get = async function (key) {
+        const result = (await getMcGet())(key);
+        return result
+    }
+
     var setJson = function (key, val) {
         mc.set(key, JSON.stringify(val))
     }
@@ -47,6 +56,8 @@ module.exports = (function () {
         isSet: isSet,
         setJson: setJson,
         getJson: getJson,
-        close: close
+        close: close,
+        set: set,
+        get: get
     };
 }());

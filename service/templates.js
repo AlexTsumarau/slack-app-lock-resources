@@ -1,12 +1,14 @@
 const lib_fs = require('fs');
 const lib_mustache = require('mustache');
 
-module.exports = function (path, params) {
+module.exports = function (path, params, userName) {
     switch (path) {
         case 'home/row':
             let arrayOfArraysToConcat = params.map(envItem => {
                 const template = lib_fs.readFileSync('templates/' + path + '/' + envItem.status + '.json').toString();
-                let str = lib_mustache.render(template.toString(), envItem)
+                envItem.isCurrentUser = envItem.user === userName
+                envItem.isQueue = envItem.queue.length > 0
+                let str = lib_mustache.render(template, envItem)
                 return JSON.parse(str)
             })
             const templateRefresh = lib_fs.readFileSync('templates/home/refresh.json').toString();

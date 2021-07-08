@@ -21,13 +21,13 @@
 		"slash_commands": [
 			{
 				"command": "/add_env",
-				"url": "https://d5193d34c550.ngrok.io/slack/events",
+				"url": "https://a850d80a76dc.ngrok.io/slack/events",
 				"description": "/add_env",
 				"should_escape": false
 			},
 			{
 				"command": "/remove_env",
-				"url": "https://d5193d34c550.ngrok.io/slack/events",
+				"url": "https://a850d80a76dc.ngrok.io/slack/events",
 				"description": "/remove_env",
 				"should_escape": false
 			}
@@ -41,7 +41,7 @@
 	},
 	"oauth_config": {
 		"redirect_urls": [
-			"https://d5193d34c550.ngrock.io/slack/events"
+			"https://a850d80a76dc.ngrock.io/slack/events"
 		],
 		"scopes": {
 			"user": [
@@ -79,7 +79,7 @@
 	},
 	"settings": {
 		"event_subscriptions": {
-			"request_url": "https://d5193d34c550.ngrok.io/slack/events",
+			"request_url": "https://a850d80a76dc.ngrok.io/slack/events",
 			"user_events": [
 				"message.app_home"
 			],
@@ -94,7 +94,7 @@
 		},
 		"interactivity": {
 			"is_enabled": true,
-			"request_url": "https://d5193d34c550.ngrok.io/slack/events"
+			"request_url": "https://a850d80a76dc.ngrok.io/slack/events"
 		},
 		"org_deploy_enabled": false,
 		"socket_mode_enabled": false

@@ -11,6 +11,7 @@ module.exports = (function () {
     let cachedReservedTime = {}
 
     var toggleStatus = function (triggeredEnvName, userName, when) {
+        let isUsed
         state_envs.forEach(envItem => {
             if (envItem.name === triggeredEnvName) {
                 if (envItem.status === sFree) {
@@ -18,13 +19,16 @@ module.exports = (function () {
                     envItem.status = sReserved
                     envItem.user = userName
                     envItem.when = now.getHours() + ':' + now.getMinutes();
+                    isUsed = true
                 } else {
                     envItem.status = sFree
                     envItem.user = null
                     envItem.when = null
+                    isUsed = false
                 }
             }
         })
+        return isUsed
     }
 
     var getEnvs = function () {
@@ -32,8 +36,9 @@ module.exports = (function () {
     }
 
     var toggleEnvSatus = function (triggeredEnvName, userName) {
-        toggleStatus(triggeredEnvName, userName);
+        let isUsed = toggleStatus(triggeredEnvName, userName);
         save()
+        return isUsed
     }
 
     var cacheReservedTime = function (envName, username, timeStart) {
