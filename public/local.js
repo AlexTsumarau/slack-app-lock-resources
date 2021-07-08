@@ -17,7 +17,8 @@ receiver.router.get('/', (req, res) => {
 
 
 (async () => {
-    await boltApp.start(3000);
-    console.log('⚡️ Bolt app is running on port 3000. You can use https://ngrok.com/ to make it accessible for Slack API');
+    const PORT = process.env.PORT || 3000;
+    await boltApp.start(PORT);
+    console.log(`⚡️ Bolt app is running on port ${PORT}. You can use https://ngrok.com/ to make it accessible for Slack API`);
 })()
 
