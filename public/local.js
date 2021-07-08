@@ -10,7 +10,7 @@ const boltApp = new App({
 
 serviceListeners(boltApp);
 
-receiver.router.post('/', (req, res) => {
+receiver.router.get('/', (req, res) => {
     // You're working with an express req and res now.
     res.send('ok');
 });
