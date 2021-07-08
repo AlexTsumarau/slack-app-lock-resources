@@ -26,11 +26,13 @@ const mc = require('./../persistence/memcahed.js');
 
 
 
-mc.setJson('message', {a: 'b', c: {d: 'e'}})
+//mc.setJson('message', {a: 'b', c: {d: 'e'}})
 
-if ( mc.isSet('message')){
-    a =  mc.getJson('message')
-    console.log(a);
-}
+// if ( mc.isSet('message')){
+//     a =  mc.getJson('message')
+//     console.log(a);
+// }
+
+//a = mc.get();
 
 mc.close()

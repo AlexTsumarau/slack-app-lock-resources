@@ -18,7 +18,7 @@ module.exports = (function () {
                     var now = new Date();
                     envItem.status = sReserved
                     envItem.user = userName
-                    envItem.when = now.getHours() + ':' + now.getMinutes();
+                    envItem.when = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0')
                     isUsed = true
                 } else {
                     envItem.status = sFree

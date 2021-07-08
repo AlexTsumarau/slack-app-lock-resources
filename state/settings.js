@@ -18,6 +18,7 @@ module.exports = (function () {
     }
 
     var set = function (k, v) {
+        console.log(k,v)
         if (mc !== null) {
             mc.set(k, v)
         }
@@ -26,7 +27,9 @@ module.exports = (function () {
     var get = async function (k) {
         if (mc !== null) {
             if (await mc.isSet(k)) {
-                return await mc.get(k)
+                let v = await mc.get(k)
+                console.log(k,v)
+                return v
             }
         }
     }
