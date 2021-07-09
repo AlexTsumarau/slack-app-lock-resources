@@ -127,25 +127,59 @@ module.exports = function (boltApp) {
     });
 
     boltApp.command('/env_remove', async ({ack, body, say}) => {
-        await ack();
+        await ack()
         let wasDeleted = stateHome.removeEnv(body.text)
         await say(`"${body.text}" ` + (wasDeleted ? 'removed' : 'not found'))
     });
 
     boltApp.command('/env_use', async ({ack, body, say}) => {
-        await ack();
-        let isUsed = stateHome.toggleEnvSatus(body.text, body.user.name)
-        await say(`"${body.text}" is ` + (isUsed ? 'used' : 'free') + ' now')
+        await ack()
+        let envName = body.text
+        if (!stateHome.isEnv(envName)) {
+            await say(`"${envName}" not found`)
+        } else if (stateHome.isEnvUsedBy(envName, body.user_name)) {
+            await say(`"${envName}" is already used by you`)
+        } else if (stateHome.isEnvUsed(envName)) {
+            await say(`"${envName}" is already used smb else`)
+        } else {
+            let isUsed = stateHome.toggleEnvSatus(envName, body.user_name)
+            await say(`"${body.text}" is ` + (isUsed ? 'used' : 'free') + ' now')
+        }
+    });
+
+    boltApp.command('/env_free', async ({ack, body, say}) => {
+        await ack()
+        let envName = body.text
+        if (!stateHome.isEnv(envName)) {
+            await say(`"${envName}" not found`)
+        } else if (!stateHome.isEnvUsed(envName)) {
+            await say(`"${envName}" is free already`)
+        } else {
+            let isUsed = stateHome.toggleEnvSatus(envName, body.user_name)
+            await say(`"${envName}" is ` + (isUsed ? 'used' : 'free') + ' now')
+        }
     });
 
     boltApp.command('/env_queue', async ({ack, body, say}) => {
-        await ack();
-        let isAdded = stateHome.toggleQueue(body.text, body.user.name)
-        await say(`You ` + (isAdded ? 'added youself to' : 'removed yourself from') + ` a queue for "${body.text}" `)
+        await ack()
+        let envName = body.text
+        if (!stateHome.isEnv(envName)) {
+            await say(`"${envName}" not found`)
+        } else if (stateHome.isEnvUsedBy(envName, body.user_name)) {
+            await say(`You can not add yourself to a queue for "${envName}" as it is already used by you `)
+        } else if (!stateHome.isEnvUsed(envName)) {
+            await say(`You can not add yourself to a queue for "${envName}" as it is free`)
+        } else {
+            let isAdded = stateHome.toggleQueue(envName, body.user_name)
+            await say(`You ` + (isAdded ? 'added youself to' : 'removed yourself from') + ` a queue for "${envName}" `)
+        }
     });
 
     boltApp.command('/env_list', async ({ack, body, say}) => {
-        await ack();
-        await say(`List of envs`)
+        await ack()
+        let list = stateHome.getEnvs().map(e => {
+            return e.name + ': ' + (e.user === null ? 'free' : 'used by ' + e.user + (e.queue.length ? ', also waiting: ' + e.queue : ''))
+        })
+        await say(list.join("\n"))
     });
 }

@@ -13,12 +13,12 @@ module.exports = (function () {
     var toggleStatus = function (triggeredEnvName, userName, when) {
         let isUsed
         state_envs.forEach(envItem => {
-            if (envItem.name === triggeredEnvName) {
+            if (envItem.name.toLowerCase() === triggeredEnvName.toLowerCase()) {
                 if (envItem.status === sFree) {
                     var now = new Date();
                     envItem.status = sReserved
                     envItem.user = userName
-                    envItem.when = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0')
+                    envItem.when = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0')
                     isUsed = true
                 } else {
                     envItem.status = sFree
@@ -101,7 +101,7 @@ module.exports = (function () {
     var removeEnv = function (envName) {
         let before = state_envs.length
         state_envs = state_envs.filter(envItem => {
-            return envItem.name !== envName
+            return envItem.name.toLowerCase() !== envName.toLowerCase()
         });
         save()
         return state_envs.length !== before
@@ -132,7 +132,7 @@ module.exports = (function () {
     var toggleQueue = function (envName, me) {
         let isAdded
         state_envs.forEach(envItem => {
-            if (envItem.name === envName) {
+            if (envItem.name.toLowerCase() === envName.toLowerCase()) {
                 if (Array.isArray(envItem.queue) && (envItem.queue.includes(me) || me === envItem.user)
                 ) {
                     var index = envItem.queue.indexOf(me);
@@ -153,6 +153,36 @@ module.exports = (function () {
         return isAdded
     }
 
+    var isEnv = function (envName) {
+        let found = false
+        state_envs.forEach(envItem => {
+            if (envItem.name.toLowerCase() === envName.toLowerCase()) {
+                found = true
+            }
+        })
+        return found
+    }
+
+    var isEnvUsedBy = function (envName, userName) {
+        let isUsed = false
+        state_envs.forEach(envItem => {
+            if (envItem.name.toLowerCase() === envName.toLowerCase() && envItem.user === userName) {
+                isUsed = true
+            }
+        })
+        return isUsed
+    }
+
+    var isEnvUsed = function (envName) {
+        let isUsed = false
+        state_envs.forEach(envItem => {
+            if (envItem.name.toLowerCase() === envName.toLowerCase()) {
+                isUsed = envItem.user != null
+            }
+        })
+        return isUsed
+    }
+
     return {
         getEnvs: getEnvs,
         toggleEnvSatus: toggleEnvSatus,
@@ -165,5 +195,8 @@ module.exports = (function () {
         removeEnv: removeEnv,
         init: init,
         toggleQueue: toggleQueue,
+        isEnv: isEnv,
+        isEnvUsedBy: isEnvUsedBy,
+        isEnvUsed: isEnvUsed,
     };
 }());

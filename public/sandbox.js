@@ -1,5 +1,5 @@
 const lib_templates = require('./../service/templates.js');
-const lib_state_home = require('./../state/home.js');
+const stateHome = require('./../state/home.js');
 const mc = require('./../persistence/memcahed.js');
 
 
@@ -20,10 +20,20 @@ const mc = require('./../persistence/memcahed.js');
 //a = lib_state_home.getReservedTimes('intDE')
 
 
-(async () => {
+let f = async () => {
+    let x
+    await stateHome.init()
+    await stateHome.getEnvs()
+    console.log(x)
+    console.log('end')
+    // let list = stateHome.getEnvs().map(e => {
+    //     return e.name + ': ' + (e.user === null ? 'free' : 'used by ' + e.user + ', also waiting: ' + e.queue)
+    // })
+    // console.log(list)
+    mc.close()
+}
 
-})()
-
+f()
 
 
 //mc.setJson('message', {a: 'b', c: {d: 'e'}})
@@ -35,4 +45,4 @@ const mc = require('./../persistence/memcahed.js');
 
 //a = mc.get();
 
-mc.close()
+//mc.close()

@@ -58,6 +58,7 @@ module.exports = (function () {
         getJson: getJson,
         close: close,
         set: set,
-        get: get
+        get: get,
+        init: init
     };
 }());

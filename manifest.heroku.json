@@ -48,6 +48,13 @@
 				"url": "https://slack-app-locks.herokuapp.com/slack/events",
 				"description": "Print a list of environments",
 				"should_escape": false
+			},
+			
+			{
+				"command": "/env_free",
+				"url": "https://slack-app-locks.herokuapp.com/slack/events",
+				"description": "Free",
+				"should_escape": false
 			}
 		]
 	},

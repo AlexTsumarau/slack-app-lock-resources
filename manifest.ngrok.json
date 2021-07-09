@@ -1,0 +1,93 @@
+{
+	"_metadata": {
+		"major_version": 1,
+		"minor_version": 1
+	},
+	"display_information": {
+		"name": "Locking environments (local)",
+		"description": "App to lock shared resources",
+		"background_color": "#1d7c00"
+	},
+	"features": {
+		"app_home": {
+			"home_tab_enabled": true,
+			"messages_tab_enabled": true,
+			"messages_tab_read_only_enabled": false
+		},
+		"bot_user": {
+			"display_name": "Locking resources",
+			"always_online": true
+		},
+		"slash_commands": [
+			{
+				"command": "/env_add",
+				"url": "https://84865d3781a0.ngrok.io/slack/events",
+				"description": "Add new environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_remove",
+				"url": "https://84865d3781a0.ngrok.io/slack/events",
+				"description": "Remove environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_use",
+				"url": "https://84865d3781a0.ngrok.io/slack/events",
+				"description": "Use environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_queue",
+				"url": "https://84865d3781a0.ngrok.io/slack/events",
+				"description": "Add me to a queue to use environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_list",
+				"url": "https://84865d3781a0.ngrok.io/slack/events",
+				"description": "Print a list of environments",
+				"should_escape": false
+			},
+			{
+				"command": "/env_free",
+				"url": "https://84865d3781a0.ngrok.io/slack/events",
+				"description": "Free",
+				"should_escape": false
+			}
+		]
+	},
+	"oauth_config": {
+		"redirect_urls": [
+			"https://a850d80a76dc.ngrok.io/slack/oauth_redirect"
+		],
+		"scopes": {
+			"user": [
+				"chat:write"
+			],
+			"bot": [
+				"commands",
+				"incoming-webhook",
+				"team:read",
+				"chat:write"
+			]
+		}
+	},
+	"settings": {
+		"event_subscriptions": {
+			"request_url": "https://84865d3781a0.ngrok.io/slack/events",
+			"user_events": [
+				"message.app_home"
+			],
+			"bot_events": [
+				"app_home_opened"
+			]
+		},
+		"interactivity": {
+			"is_enabled": true,
+			"request_url": "https://84865d3781a0.ngrok.io/slack/events"
+		},
+		"org_deploy_enabled": true,
+		"socket_mode_enabled": false
+	}
+}
