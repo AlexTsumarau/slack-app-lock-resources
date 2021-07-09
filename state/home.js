@@ -95,21 +95,25 @@ module.exports = (function () {
             schedule: [],
             queue: []
         })
-        save()
+        return save()
     }
 
     var removeEnv = function (envName) {
+        let before = state_envs.length
         state_envs = state_envs.filter(envItem => {
             return envItem.name !== envName
         });
         save()
+        return state_envs.length !== before
     }
 
     var save = function () {
         if (mc !== null) {
             //console.log('save', state_envs)
             mc.setJson(kDefault, state_envs)
+            return true
         }
+        return false
     }
 
     var restore = async function () {
@@ -126,23 +130,27 @@ module.exports = (function () {
     }
 
     var toggleQueue = function (envName, me) {
+        let isAdded
         state_envs.forEach(envItem => {
             if (envItem.name === envName) {
                 if (Array.isArray(envItem.queue) && (envItem.queue.includes(me) || me === envItem.user)
                 ) {
                     var index = envItem.queue.indexOf(me);
                     if (index !== -1) {
-                        envItem.queue.splice(index, 1);
+                        envItem.queue.splice(index, 1)
+                        isAdded = false
                     }
                 } else {
                     if (!Array.isArray(envItem.queue)) {
                         envItem.queue = []
                     }
                     envItem.queue.push(me)
+                    isAdded = true
                 }
             }
         });
         save()
+        return isAdded
     }
 
     return {

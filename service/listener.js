@@ -8,7 +8,7 @@ module.exports = function (boltApp) {
     stateHome.init();
 
     const logResouorceStatusUppdate = async (client, userName, envName, isUsed) => {
-        let msg = userName + ( isUsed ? ' is using ' : ' released ' ) + envName
+        let msg = userName + (isUsed ? ' is using ' : ' released ') + envName
         let messageSettings = await stateSettings.getJson('messages')
         if (!messageSettings.channel) {
             return
@@ -115,20 +115,37 @@ module.exports = function (boltApp) {
         reRenderHome(ack, body, client);
     });
 
-    boltApp.command('/add_env', async ({ack, body, say}) => {
-        await ack();
-        stateHome.addEnv(body.text)
-        await say(`New environment "${body.text}" added`);
-    });
-
-    boltApp.command('/remove_env', async ({ack, body, say}) => {
-        await ack();
-        stateHome.removeEnv(body.text)
-        await say(`Environment "${body.text}" removed`);
-    });
-
     boltApp.action('btn_refresh', async ({ack, body, client}) => {
         await ack()
-        reRenderHome(ack, body, client);
+        reRenderHome(ack, body, client)
+    });
+
+    boltApp.command('/env_add', async ({ack, body, say}) => {
+        await ack();
+        let wasAddeed = stateHome.addEnv(body.text)
+        await say(`"${body.text}" ` + (wasAddeed ? 'added' : 'can not be added'))
+    });
+
+    boltApp.command('/env_remove', async ({ack, body, say}) => {
+        await ack();
+        let wasDeleted = stateHome.removeEnv(body.text)
+        await say(`"${body.text}" ` + (wasDeleted ? 'removed' : 'not found'))
+    });
+
+    boltApp.command('/env_use', async ({ack, body, say}) => {
+        await ack();
+        let isUsed = stateHome.toggleEnvSatus(body.text, body.user.name)
+        await say(`"${body.text}" is ` + (isUsed ? 'used' : 'free') + ' now')
+    });
+
+    boltApp.command('/env_queue', async ({ack, body, say}) => {
+        await ack();
+        let isAdded = stateHome.toggleQueue(body.text, body.user.name)
+        await say(`You ` + (isAdded ? 'added youself to' : 'removed yourself from') + ` a queue for "${body.text}" `)
+    });
+
+    boltApp.command('/env_list', async ({ack, body, say}) => {
+        await ack();
+        await say(`List of envs`)
     });
 }

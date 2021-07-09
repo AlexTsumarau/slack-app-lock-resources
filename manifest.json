@@ -20,24 +20,45 @@
 		},
 		"slash_commands": [
 			{
-				"command": "/add_env",
-				"url": "https://a850d80a76dc.ngrok.io/slack/events",
-				"description": "/add_env",
+				"command": "/env_add",
+				"url": "https://slack-app-locks.herokuapp.com/slack/events",
+				"description": "Add new environment",
 				"should_escape": false
 			},
 			{
-				"command": "/remove_env",
-				"url": "https://a850d80a76dc.ngrok.io/slack/events",
-				"description": "/remove_env",
+				"command": "/env_remove",
+				"url": "https://slack-app-locks.herokuapp.com/slack/events",
+				"description": "Remove environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_use",
+				"url": "https://slack-app-locks.herokuapp.com/slack/events",
+				"description": "Use environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_queue",
+				"url": "https://slack-app-locks.herokuapp.com/slack/events",
+				"description": "Add me to a queue to use environment",
+				"should_escape": false
+			},
+			{
+				"command": "/env_list",
+				"url": "https://slack-app-locks.herokuapp.com/slack/events",
+				"description": "Print a list of environments",
 				"should_escape": false
 			}
 		]
 	},
 	"oauth_config": {
 		"redirect_urls": [
-			"https://a850d80a76dc.ngrok.io/slack/events"
+			"https://a850d80a76dc.ngrok.io/slack/oauth_redirect"
 		],
 		"scopes": {
+			"user": [
+				"chat:write"
+			],
 			"bot": [
 				"commands",
 				"incoming-webhook",
@@ -48,7 +69,7 @@
 	},
 	"settings": {
 		"event_subscriptions": {
-			"request_url": "https://a850d80a76dc.ngrok.io/slack/events",
+			"request_url": "https://slack-app-locks.herokuapp.com/slack/events",
 			"user_events": [
 				"message.app_home"
 			],
@@ -58,9 +79,9 @@
 		},
 		"interactivity": {
 			"is_enabled": true,
-			"request_url": "https://a850d80a76dc.ngrok.io/slack/events"
+			"request_url": "https://slack-app-locks.herokuapp.com/slack/events"
 		},
-		"org_deploy_enabled": false,
+		"org_deploy_enabled": true,
 		"socket_mode_enabled": false
 	}
 }
